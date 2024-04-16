@@ -1,23 +1,24 @@
+# Use Node.js v16 as the base image
 FROM node:16
 
-RUN npm install -g http-server
-
-# Set the working directory in the container
+# Set the working directory in the container to /frontend
 WORKDIR /frontend
 
 # Copy package.json and package-lock.json to the working directory
 COPY package*.json ./
 
 # Install dependencies
-RUN npm install
+RUN npm install -g http-server && which http-server
 
 # Copy the rest of the application code to the working directory
 COPY . .
 
+# Build the app for production with minification
 RUN npm run build
+
 # Expose port 8080
 EXPOSE 8080
 
-# Run the start script defined in package.json
-CMD [ "http-server", "dist" ]
+# Serve the app using http-server at port 8080
+CMD ["http-server", "dist"]
 
