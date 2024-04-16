@@ -15,4 +15,5 @@ COPY . .
 EXPOSE 5000
 
 # The command to run the application using Gunicorn
-CMD ["gunicorn", "-w", "4", "-b", ":5000", "wsgi:app"]
+CMD ["gunicorn", "-b", ":5000", "--worker-class", "eventlet", "-w", "1", "app:app"]
+

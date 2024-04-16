@@ -1,14 +1,14 @@
 from flask import Flask, request, session
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send, join_room, leave_room, close_room
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
+
+
 app = Flask(__name__,
             static_folder="./dist/static",
             template_folder="./dist")
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
+app.config['SECRET_KEY'] = 'sekretnyklucz'
+
 app.config['DEBUG'] = True
 
 cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
