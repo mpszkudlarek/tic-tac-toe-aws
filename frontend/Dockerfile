@@ -1,24 +1,13 @@
-# Use Node.js v16 as the base image
-FROM node:16
-
-# Set the working directory in the container to /frontend
-WORKDIR /frontend
-
-# Copy package.json and package-lock.json to the working directory
+# Stage 1: Build the Vue application
+FROM node:16 as build-stage
+WORKDIR /app
 COPY package*.json ./
-
-# Install dependencies
-RUN npm install -g http-server && which http-server
-
-# Copy the rest of the application code to the working directory
+RUN npm install
 COPY . .
-
-# Build the app for production with minification
 RUN npm run build
 
-# Expose port 8080
-EXPOSE 8080
-
-# Serve the app using http-server at port 8080
-CMD ["http-server", "dist"]
-
+# Stage 2: Serve the application with Nginx
+FROM nginx:stable-alpine as production-stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

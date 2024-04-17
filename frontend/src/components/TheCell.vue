@@ -12,7 +12,7 @@
         x : this.vals[0],
         y : this.vals[1],
         borderWidth: ""
-        // border: "2px solid rgb(255, 243, 243)"
+  
       }
     },
     created() {

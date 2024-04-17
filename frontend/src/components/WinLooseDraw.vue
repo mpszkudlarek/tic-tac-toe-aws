@@ -88,8 +88,8 @@ button:active {
 
 .modal-container {
   width: 500px;
-  margin: 0px auto;
-  padding: 10px 30px 0px 30px;
+  margin: 0 auto;
+  padding: 10px 30px 0 30px;
   background-color: #333;
   border-radius: 25px;
   transition: all 0.3s ease;
@@ -98,11 +98,11 @@ button:active {
 }
 
 .modal-body {
-  margin: 20px 0px 0px 0px;
-  padding-bottom: 0px;
-  padding-top: 0px;
+  margin: 20px 0 0 0;
+  padding-bottom: 0;
+  padding-top: 0;
   font-size: 5em;
-  row-gap: 0px !important;
+  row-gap: 0 !important;
 }
 
 /*

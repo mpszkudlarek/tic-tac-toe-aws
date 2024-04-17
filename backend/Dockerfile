@@ -1,19 +1,20 @@
-# Use Python 3.8 slim image from Docker Hub as the base image
+# Use an official Python runtime as a parent image
 FROM python:3.8-slim
 
-# Set the working directory to /backend
-WORKDIR /backend
+# Set the working directory in the container
+WORKDIR /app
 
-# Copy the application's requirements file and install dependencies
-COPY requirements.txt requirements.txt
-RUN pip3 install -r requirements.txt
+# Copy the current directory contents into the container at /app
+COPY . /app
 
-# Copy the rest of your application's code
-COPY . .
+# Install any needed packages specified in requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Make port 5000 available to the world outside this container
 EXPOSE 5000
 
-# The command to run the application using Gunicorn
-CMD ["gunicorn", "-b", ":5000", "--worker-class", "eventlet", "-w", "1", "app:app"]
+# Define environment variable from .env file
+ENV FLASK_ENV=development
 
+# Command to run the app
+CMD ["gunicorn", "-b", ":5000", "--worker-class", "eventlet", "-w", "1", "app:app"]

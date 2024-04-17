@@ -1,14 +1,14 @@
 from flask import Flask, request, session
 from flask_cors import CORS
 from flask_socketio import SocketIO, emit, send, join_room, leave_room, close_room
+from dotenv import load_dotenv
+import os
 
-
-
+load_dotenv()
 app = Flask(__name__,
             static_folder="./dist/static",
             template_folder="./dist")
-app.config['SECRET_KEY'] = 'sekretnyklucz'
-
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')
 app.config['DEBUG'] = True
 
 cors = CORS(app, resources={r"/api/*": {"origin": "*"}})
@@ -61,9 +61,9 @@ def disconnect():
     if session["roomId"] != "":
         emit("game_over", "Oponent DC'ed :(", to=session["roomId"])
         close_and_remove_rooms(session["roomId"])
-        print(session["roomId"] + " is the roomid of the dude who just dc'ed")
+        print(session["roomId"] + " is the roomid of someone who just dc'ed")
     else:
-        print("rando DC'ed")
+        print("random DC")
 
 
 @socketio.on('user_join_room')
