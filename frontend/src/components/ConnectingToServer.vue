@@ -13,7 +13,7 @@
                                 Waiting for server . . .
                             </h2>
                             <p class="">
-                                Server is staring 🚀🚀🚀
+                                Server is starting 🚀🚀🚀
                             </p>
                         </div>
                     </div>

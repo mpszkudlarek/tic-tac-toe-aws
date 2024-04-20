@@ -47,22 +47,22 @@ button {
 }
 
 button:hover {
-    color: white;
-    background-position: 100% 0;
-    moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    -webkit-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+  color: white;
+  background-position: 100% 0;
+  moz-transition: all .2s ease-in-out;
+  -o-transition: all .2s ease-in-out;
+  -webkit-transition: all .2s ease-in-out;
+  transition: all .2s ease-in-out;
 }
 
 button:disabled {
-  background-color:#673AB7;
+  background-color: #673AB7;
 }
 
 
 button:focus,
 button:active {
-  outline:0 !important;
+  outline: 0 !important;
   outline: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -115,7 +115,6 @@ button:active {
  */
 
 
-
 .modal-enter .modal-container,
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
@@ -129,6 +128,7 @@ button:active {
     bottom: 45vh;
     right: 5vh;
   }
+
   .modal-mask {
     background-color: rgba(0, 0, 0, 0.8);
   }

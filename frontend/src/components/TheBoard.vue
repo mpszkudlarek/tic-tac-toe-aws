@@ -1,4 +1,3 @@
-
 <template>
   <div class="container">
     <div class="tictactoe-board">
@@ -66,11 +65,11 @@ export default {
   font-size: 4vh;
 }
 
-.oppTurn{
+.oppTurn {
   font-size: 3vh;
 }
 
-.myName, 
+.myName,
 .oppName {
   align-self: center;
   padding: 8px 16px 5px 16px;
@@ -101,14 +100,15 @@ export default {
 }
 
 @media screen and (max-device-width: 510px) {
-.container{
-  transform: scale(1.5);
-}
-.gameInfo{
-  position: relative;
-  transform: scale(0.9);
-  width: 364px;
-}
+  .container {
+    transform: scale(1.5);
+  }
+
+  .gameInfo {
+    position: relative;
+    transform: scale(0.9);
+    width: 364px;
+  }
 }
 
 </style>

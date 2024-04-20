@@ -1,4 +1,4 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 
 const io = require('socket.io-client');
 const store = createStore({
@@ -21,27 +21,27 @@ const store = createStore({
         };
     },
     mutations: {
-        setConnStr (state, payload) {
+        setConnStr(state, payload) {
             state.connectionStr = payload;
         },
-        changeValue (state, payload) {
+        changeValue(state, payload) {
             if (state.board[payload.x][payload.y] === 0) {
                 state.board[payload.x][payload.y] = payload.player;
             }
         },
-        switchPlayer (state) {
+        switchPlayer(state) {
             if (state.currentPlayer === "O") {
                 state.currentPlayer = "X";
             } else {
                 state.currentPlayer = "O";
             }
         },
-        clearBoard (state) {
-            for(let i = 0; i < state.board.length; i++) {
-                for(let j = 0; j < state.board[i].length; j++) {
+        clearBoard(state) {
+            for (let i = 0; i < state.board.length; i++) {
+                for (let j = 0; j < state.board[i].length; j++) {
                     if (state.board[i][j] !== 0) {
                         console.log("clear board");
-                        state.board[i][j] = 0 ;
+                        state.board[i][j] = 0;
                     }
                 }
             }
@@ -73,8 +73,8 @@ const store = createStore({
             return state.board;
         },
         checkIfFull: (state) => {
-            for(let i = 0; i < state.board.length; i++) {
-                for(let j = 0; j < state.board[i].length; j++) {
+            for (let i = 0; i < state.board.length; i++) {
+                for (let j = 0; j < state.board[i].length; j++) {
                     if (state.board[i][j] === 0) {
                         return false;
                     }
@@ -84,19 +84,19 @@ const store = createStore({
         },
         playerHas3InARow: (state) => (player) => {
             // Horizontal rows
-            for (let i=0; i<3; i++) {
-              if (state.board[0][i] === player && state.board[1][i] === player && state.board[2][i] === player) {
-                return true;
-              }
+            for (let i = 0; i < 3; i++) {
+                if (state.board[0][i] === player && state.board[1][i] === player && state.board[2][i] === player) {
+                    return true;
+                }
             }
-    
+
             // Vertical rows
-            for (let i=0; i<3; i++) {
-              if (state.board[i][0] === player && state.board[i][1] === player && state.board[i][2] === player) {
-                return true;
-              }
+            for (let i = 0; i < 3; i++) {
+                if (state.board[i][0] === player && state.board[i][1] === player && state.board[i][2] === player) {
+                    return true;
+                }
             }
-    
+
             // Diagonals
             if (state.board[0][0] === player && state.board[1][1] === player && state.board[2][2] === player) {
                 return true;
@@ -104,7 +104,6 @@ const store = createStore({
             return state.board[2][0] === player && state.board[1][1] === player && state.board[0][2] === player;
 
         },
-        // omg this is lokey stupid, do i really need to do this everytime? idk man people said use getters ama use getters
         playerUserName: (state) => {
             return state.playerUserName;
         },
