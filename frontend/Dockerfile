@@ -1,13 +1,20 @@
-# Stage 1: Build the Vue application
-FROM node:16 as build-stage
-WORKDIR /app
-COPY package*.json ./
-RUN npm install
-COPY . .
-RUN npm run build
+# Wybierz obraz bazowy Node.js
+FROM node:16-alpine
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:stable-alpine as production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-EXPOSE 80
-CMD ["nginx", "-g", "daemon off;"]
+# Ustaw katalog roboczy w kontenerze
+WORKDIR /app
+
+# Skopiuj pliki `package.json` i `package-lock.json` (jeśli istnieje)
+COPY package*.json ./
+
+# Zainstaluj zależności projektu
+RUN npm install
+
+# Skopiuj pozostałe pliki projektu
+COPY . .
+
+# Odsłoń port 8080 na potrzeby serwera deweloperskiego
+EXPOSE 8080
+
+# Uruchom serwer deweloperski
+CMD ["npm", "run", "serve"]

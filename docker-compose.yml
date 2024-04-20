@@ -13,9 +13,10 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "8080:80"  # Map port 80 in the container to port 8080 on the host
+      - "8080:8080"  # Map port 80 in the container to port 8080 on the host
     volumes:
       - ./frontend:/app  # Mount the frontend directory for live code changes
+      - /app/node_modules
     depends_on:
       - backend  # Ensure backend service is started first
 
