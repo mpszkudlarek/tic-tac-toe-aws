@@ -15,8 +15,7 @@ const store = createStore({
             roomId: "",
             myTurn: false,
             gameOver: false,
-            socket: io('http://127.0.0.1:3000', {transports: ['websocket']}),
-            // socket: io('https://tictactoe-server.onrender.com/', {transports: ['websocket']}),
+            socket: io(`http://${window.location.hostname}:3000`, {transports: ['websocket']}),
             connectionStr: "backend not connected"
         };
     },
