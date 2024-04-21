@@ -10,11 +10,11 @@ COPY . /app
 # Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Make port 5000 available to the world outside this container
-EXPOSE 5000
+# Make port 3000 available to the world outside this container
+EXPOSE 3000
 
 # Define environment variable from .env file
 ENV FLASK_ENV=development
 
 # Command to run the app
-CMD ["gunicorn", "-b", ":5000", "--worker-class", "eventlet", "-w", "1", "app:app"]
+CMD ["gunicorn", "-b", ":3000", "--worker-class", "eventlet", "-w", "1", "app:app"]
