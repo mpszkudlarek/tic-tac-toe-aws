@@ -1,6 +1,6 @@
 # określa dostawcę, który będzie używany w konfiguracji
 provider "aws" {
-  region  = "eu-central-1"
+  region  = "us-east-1"
   profile = "default"
 }
 
@@ -12,10 +12,10 @@ resource "aws_instance" "ec2_proj_1_terraform" {
   # a baseline level of CPU performance with the ability to burst above the baseline when needed
   instance_type = "t2.small"
   # określa nazwę klucza SSH, który ma być używany do uwierzytelniania połączenia z instancją.
-  key_name = "deploy"
+  key_name = "key_flask_vue"
   # określa, czy instancja ma mieć przypisany publiczny adres IP
   associate_public_ip_address = true
-  # przypisana grupa zabepieczen
+  # przypisana grupa zabepieczen 
   vpc_security_group_ids = [aws_security_group.security_group_proj_1_terraform.id]
 
   tags = {
@@ -125,10 +125,4 @@ resource "aws_security_group" "security_group_proj_1_terraform" {
     description = "Frontend"
     cidr_blocks = ["0.0.0.0/0"]
   }
-}
-
-# pary kluczy w AWS są używane do uwierzytelniania połączeń SSH z instancjami EC2
-resource "aws_key_pair" "deployer" {
-  key_name   = "deploy"
-  public_key = "${file("deploy.pub")}"
 }
