@@ -1,6 +1,6 @@
 provider "aws" {
   region = "us-east-1"  # Specifies the AWS region in which resources will be created
-  profile = "default"    # Uses default profile as per AWS configuration
+  profile = "default"    # Uses default profile as per AWS configuration, it takes credentials from ~/.aws/credentials
 }
 
 resource "aws_instance" "tictactoe_tf" {
@@ -18,7 +18,7 @@ resource "aws_instance" "tictactoe_tf" {
 }
 
 resource "aws_vpc" "vpc_tf" {
-  cidr_block = "10.0.0.0/16" # Defines the IP address range for the VPC
+  cidr_block = "10.0.0.0/16" # Defines the IP address range for the VPC, in CIDR notation, so it can hold 65,536 IP addresses from 10.0.0.0 to 10.0.255.555
   enable_dns_support = true # Enables DNS support within the VPC
   enable_dns_hostnames = true # Enables DNS hostname resolution within the VPC
 
@@ -29,7 +29,7 @@ resource "aws_vpc" "vpc_tf" {
 
 resource "aws_subnet" "subnet_tf" {
   vpc_id = aws_vpc.vpc_tf.id # Associates the subnet with the VPC
-  cidr_block = "10.0.1.0/24" # Defines the subnets IP address range
+  cidr_block = "10.0.1.0/24" # Defines the subnets IP address range, in CIDR notation, so it can hold 256 IP addresses from 10.0.1.0 to 10.01.255
 
   tags = {
     Name = "Subnet TF" # Name tag for the subnet
