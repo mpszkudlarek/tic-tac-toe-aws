@@ -10,9 +10,10 @@ systemctl enable docker
 
 # Download Docker Compose binary
 if [ ! -f "/usr/local/bin/docker-compose" ]; then
+    # shellcheck disable=SC2046
     wget -q https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -O /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 fi
 
-# Download repository
+# Download github tictactoe repository
 git clone https://github.com/mpszkudlarek/tic_tac_toe_aws.git /home/ec2-user/game

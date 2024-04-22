@@ -1,16 +1,15 @@
-# definiuje ustawienia globalne dla całego pliku konfiguracyjnego Terraform
+# Defines global settings for the entire Terraform configuration file
 terraform {
-  # mapa, która określa niezbędnych dostawców, czyli usługi chmurowe lub inne platformy, z których Terraform będzie korzystać do zarządzania zasobami.
+  # A map that specifies the required providers, which are the cloud services or other platforms that Terraform will use to manage resources.
   required_providers {
     aws = {
-      # trybut w bloku aws, który określa źródło dostawcy. W tym przypadku jest to "hashicorp/aws", co oznacza, 
-      # że Terraform będzie pobierać dostawcę AWS z publicznego rejestru dostawców prowadzonego przez HashiCorp.
+      # Attribute within the 'aws' block that specifies the provider's source. Here, "hashicorp/aws" indicates
+      # that Terraform will download the AWS provider from HashiCorp's public provider registry.
       source  = "hashicorp/aws"
-      # atrybut w bloku aws, który określa wymaganą wersję dostawcy AWS. 
-      # W tym przypadku "~> 4.16" oznacza, że Terraform będzie korzystać z wersji dostawcy AWS w zakresie od 4.16 do poniżej 5.0.
+      # Attribute within the 'aws' block that specifies the required version of the AWS provider.
+      # Here, "~> 4.16" means Terraform will use a version of the AWS provider from 4.16 up to, but not including, 5.0.
       version = "~> 4.16"
     }
   }
-  # deklaracja wersji Terraforma
   required_version = ">= 1.2.0"
 }
