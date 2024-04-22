@@ -1,20 +1,20 @@
-# Wybierz obraz bazowy Node.js
+# Use an official Node.js runtime as a parent image
 FROM node:16-alpine
 
-# Ustaw katalog roboczy w kontenerze
+# Set the working directory in the container
 WORKDIR /app
 
-# Skopiuj pliki `package.json` i `package-lock.json` (jeśli istnieje)
+# Copy package.json and package-lock.json into the container at /app
 COPY package*.json ./
 
-# Zainstaluj zależności projektu
+# Install all dependencies
 RUN npm install
 
-# Skopiuj pozostałe pliki projektu
+# Copy the current directory contents into the current directory in the container
 COPY . .
 
-# Odsłoń port 8080 na potrzeby serwera deweloperskiego
+# Expose port 8080 to the world outside this container
 EXPOSE 8080
 
-# Uruchom serwer deweloperski
+# Command to run the app
 CMD ["npm", "run", "serve"]
