@@ -16,14 +16,11 @@ socketio = SocketIO(cors_allowed_origins="*", async_mode="eventlet")
 socketio.init_app(app)
 
 
-# test home route running
-
+# endpoint for testing if the server is running correctly
 @app.route('/', methods=['GET', 'POST'])
 def home():
     return "<h1>Server is running correctly :)</h1>"
 
-
-# socketio functions
 
 @socketio.on('connect')
 def client_connect():
@@ -31,15 +28,16 @@ def client_connect():
     emit('on_connect', 'Connected')
 
 
+# print the username and the socket id of the user for debugging
 @socketio.on('get_username')
 def get_username(userName):
     print(userName + ' : ' + request.sid)
 
 
-# room stuff 
 Rooms = {}
 
 
+# print the rooms for debugging
 def print_rooms():
     print("--------- Rooms ---------")
     for i in Rooms:
@@ -47,6 +45,7 @@ def print_rooms():
     print("------------------------")
 
 
+# close the room and remove it from the Rooms dictionary for debugging
 def close_and_remove_rooms(id):
     if id in Rooms:
         close_room(id)
@@ -54,7 +53,6 @@ def close_and_remove_rooms(id):
         print_rooms()
 
 
-# if User DC's
 @socketio.on('disconnect')
 def disconnect():
     emit('on_disconnect', 'backend not connected')
@@ -69,14 +67,13 @@ def disconnect():
 @socketio.on('user_join_room')
 def user_join_room(data):
     username = data['username']
-
-    # join room if it already has 1 member in it
     for i in Rooms:
+        # if room has one member another member can join
         if Rooms[i] == 1:
             room_id = i
             join_room(i)
             Rooms[i] += 1
-            # set player value to O and roomid in client
+            # set the player value to O and room_id in client
             room_id_and_player = {"room_id": room_id, "player": "O"}
             emit("set_current_player_and_room_id", room_id_and_player)
             session["roomId"] = room_id
@@ -87,7 +84,7 @@ def user_join_room(data):
     else:
         room_id = data['room_id']
         join_room(room_id)
-        # set player value to X and roomid in client
+        # set player value to X and room_id in client
         room_id_and_player = {"room_id": room_id, "player": "X"}
         emit("set_current_player_and_room_id", room_id_and_player)
         session["roomId"] = room_id
@@ -99,47 +96,37 @@ def user_join_room(data):
     print_rooms()
 
 
-# get opponent username
 @socketio.on('sendUserName')
 def send_user_name(data):
     emit("setOppName", data["name"], to=data["roomid"], include_self=False)
 
 
-# game logic
-
-# get the board once it is changed
 @socketio.on('board_changed')
 def board_changed(data):
     data_to_send = {"x": data["x"], "y": data["y"], "player": data["player"]}
-    # emit("board_changed_in_server", data_to_send , to=data['roomId'], include_self=False)
     emit("board_changed_in_server", data_to_send, to=data['roomId'], include_self=False)
 
 
-# switch the turn to the other person
 @socketio.on('switch_users')
 def switch_users(room_id):
     emit('make_user_switch', to=room_id, include_self=False)
 
 
-# when one user wins
 @socketio.on('someone_won')
 def someone_won(data):
-    # data -> roomid, who won
     message = data["player"] + " Won!"
     emit("game_over", message, to=data["roomId"])
-    # close the room
     close_and_remove_rooms(data["roomId"])
 
     print("Player " + data["player"] + " won in room -> " + data["roomId"])
 
 
-# if the game is a draw
 @socketio.on('draw')
 def draw(data):
-    message = "Draw :("
+    message = "It's a draw, play again!"
     emit("game_over", message, to=data["roomId"])
     close_and_remove_rooms(data["roomId"])
 
 
 if __name__ == "__main__":
-    socketio.run(app, port=3000)
+    socketio.run(app, port=3000, use_reloader=True, debug=True, log_output=True)
