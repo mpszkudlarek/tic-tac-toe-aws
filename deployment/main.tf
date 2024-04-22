@@ -11,7 +11,7 @@ resource "aws_instance" "tictactoe_tf" {
   vpc_security_group_ids = [aws_security_group.security_group_tf.id] # Security group to attach
 
   tags = {
-    Name = "Tic Tac Toe TF"
+    Name = "Tic Tac Toe TF" # Name tag for the instance
   }
 
   user_data = file("install-app.sh") # User data script to run on instance initialization
@@ -23,7 +23,7 @@ resource "aws_vpc" "vpc_tf" {
   enable_dns_hostnames = true # Enables DNS hostname resolution within the VPC
 
   tags = {
-    Name = "VPC TF"
+    Name = "VPC TF" # Name tag for the VPC
   }
 }
 
@@ -32,7 +32,7 @@ resource "aws_subnet" "subnet_tf" {
   cidr_block = "10.0.1.0/24" # Defines the subnets IP address range
 
   tags = {
-    Name = "Subnet TF"
+    Name = "Subnet TF" # Name tag for the subnet
   }
 }
 
@@ -40,7 +40,7 @@ resource "aws_internet_gateway" "gateway_tf" {
   vpc_id = aws_vpc.vpc_tf.id # Associates the internet gateway with the VPC
 
   tags = {
-    Name = "Gateway TF"
+    Name = "Gateway TF" # Name tag for the internet gateway
   }
 }
 
@@ -53,44 +53,44 @@ resource "aws_route_table" "route_table_tf" {
   }
 
   tags = {
-    Name = "Route Table TF"
+    Name = "Route Table TF" # Name tag for the route table
   }
 }
 
 resource "aws_route_table_association" "subnet_tf" {
   subnet_id = aws_subnet.subnet_tf.id # Associates the subnet with the route table
-  route_table_id = aws_route_table.route_table_tf.id
+  route_table_id = aws_route_table.route_table_tf.id # Associates the route table with the subnet
 }
 
 resource "aws_security_group" "security_group_tf" {
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port = 0 # Specifies the start of the port range for the egress rule
+    to_port = 0 # Specifies the end of the port range for the egress rule
+    protocol = "-1" # Specifies the protocol for the egress rule, -1 indicates all protocols
     cidr_blocks = ["0.0.0.0/0"] # Allows all outbound traffic
   }
 
   ingress {
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    description = "SSH"
+    from_port = 22 # Specifies the start of the port range for the ingress rule
+    to_port = 22 # Specifies the end of the port range for the ingress rule
+    protocol = "tcp" # Specifies the protocol for the ingress rule
+    description = "SSH" # Description of the ingress rule
     cidr_blocks = ["0.0.0.0/0"] # Allows inbound SSH access
   }
 
   ingress {
-    from_port   = 3000
-    to_port     = 3000
-    protocol    = "tcp"
-    description = "Backend"
+    from_port = 3000 # Specifies the start of the port range for the ingress rule
+    to_port = 3000 # Specifies the end of the port range for the ingress rule
+    protocol = "tcp" # Specifies the protocol for the ingress rule
+    description = "Backend" # Description of the ingress rule
     cidr_blocks = ["0.0.0.0/0"] # Allows traffic on port 3000 for backend access
   }
 
   ingress {
-    from_port   = 8080
-    to_port     = 8080
-    protocol    = "tcp"
-    description = "Frontend"
+    from_port = 8080 # Specifies the start of the port range for the ingress rule
+    to_port = 8080 # Specifies the end of the port range for the ingress rule
+    protocol = "tcp" # Specifies the protocol for the ingress rule
+    description = "Frontend" # Description of the ingress rule
     cidr_blocks = ["0.0.0.0/0"] # Allows traffic on port 8080 for frontend access
   }
 }
