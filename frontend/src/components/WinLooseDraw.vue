@@ -68,7 +68,6 @@ button:active {
   box-shadow: none !important;
 }
 
-/* modal shit */
 .modal-mask {
   position: fixed;
   z-index: 9998;
@@ -86,6 +85,7 @@ button:active {
   vertical-align: middle;
 }
 
+
 .modal-container {
   width: 500px;
   margin: 0 auto;
@@ -93,7 +93,6 @@ button:active {
   background-color: #333;
   border-radius: 25px;
   transition: all 0.3s ease;
-  /* make modal bigger */
   transform: scale(1.2);
 }
 
@@ -101,6 +100,7 @@ button:active {
   margin: 20px 0 0 0;
   padding-bottom: 0;
   padding-top: 0;
+  color: #f2f2f2;
   font-size: 5em;
   row-gap: 0 !important;
 }

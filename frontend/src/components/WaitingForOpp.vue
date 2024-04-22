@@ -12,6 +12,7 @@ export default {}
 h3 {
   font-size: 4vh;
   margin-bottom: 3vh;
+  color: #f2f2f2;
 }
 
 img {

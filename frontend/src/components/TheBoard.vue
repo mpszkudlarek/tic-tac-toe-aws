@@ -63,10 +63,12 @@ export default {
   position: relative;
   top: 20px;
   font-size: 4vh;
+  color: #f2f2f2;
 }
 
 .oppTurn {
   font-size: 3vh;
+  color: #f2f2f2;
 }
 
 .myName,
